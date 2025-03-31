@@ -8,6 +8,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import NotesForm
 from .models import Notes
 
+def change_visibility_view(request, pk):
+    if request.method == 'POST': 
+        note = get_object_or_404(Notes, pk=pk)
+        note.is_public = not note.is_public
+        note.save()
+        return HttpResponseRedirect(reverse("notes.details", args=(pk,)))
+    raise Http404
+
 class NoteDeleteView(DeleteView):
     model = Notes
     success_url = '/smart/notes'
