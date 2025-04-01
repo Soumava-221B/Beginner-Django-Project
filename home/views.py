@@ -1,11 +1,22 @@
 from django.shortcuts import render
+from django.views import View
+from django.contrib.auth import logout
+from django.shortcuts import redirect
 from django.http import HttpResponse
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
+from django.http import HttpResponseForbidden
  
+class LogoutInterfaceView(View):
+    def post(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            logout(request)
+            return redirect('/')  # Redirect to home or any other page
+        return HttpResponseForbidden("You are not allowed to perform this action")
+
 class LoginInterfaceView(LoginView):
     template_name = 'home/login.html'
 
