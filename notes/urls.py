@@ -8,4 +8,5 @@ urlpatterns = [
     path('notes/<int:pk>/edit', views.NotesUpdateView.as_view(), name="notes.update"),
     path('notes/<int:pk>/delete', views.NoteDeleteView.as_view(), name="notes.delete"),
     path('notes/new', views.NotesCreateView.as_view(), name="notes.new"),
+    path('notes/<int:pk>/change_visibility/', views.change_visibility_view, name="notes.change_visibility"),
 ]
