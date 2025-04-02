@@ -65,3 +65,8 @@ class NotesDetailView(LoginRequiredMixin, DetailView):
     model = Notes
     context_object_name = "note"
     login_url = "/login"
+
+class NotesPublicDetailView(DetailView):
+    model = Notes
+    context_object_name = "note"
+    queryset = Notes.objects.filter(is_public=True)
